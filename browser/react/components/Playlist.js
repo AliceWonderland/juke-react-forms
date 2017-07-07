@@ -22,6 +22,20 @@ export default class Playlist extends Component {
 
     }
 
+    componentWillReceiveProps (nextProps) {
+        console.log("willReceive",nextProps);
+        const nextPlaylistId = nextProps.match.params.playlistId;
+        const currentPlaylistId = this.props.match.params.playlistId;
+        if (nextPlaylistId !== currentPlaylistId) {
+            axios.get(`/api/playlists/${nextPlaylistId}`)
+                .then(res => res.data)
+                .then(playlist => {
+                    // playlist.songs = playlist.songs.map(convertSong); // optional, for audio
+                    this.setState({ playlist: playlist });
+                });
+        }
+    }
+
     render(){
         return (
             <div>

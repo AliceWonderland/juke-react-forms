@@ -16,6 +16,7 @@ export default class Main extends Component {
     this.state={playlists:[]};
 
       this.addPlaylist = this.addPlaylist.bind(this);
+      this.fetchPlaylistByid = this.fetchPlaylistByid.bind(this);
   }
 
   componentDidMount(){
@@ -26,18 +27,31 @@ export default class Main extends Component {
           .then(playlists=>{
               this.setState({playlists:playlists});
           });
+
+      // this.fetchPlaylistById(playlistId);
   }
 
 
-    addPlaylist (playlistName) {
-        axios.post('/api/playlists', { name: playlistName })
-            .then(res => res.data)
-            .then(playlist => {
-                this.setState({
-                    playlists: [...this.state.playlists, playlist]
-                });
-            });
-    }
+
+
+  addPlaylist (playlistName) {
+      axios.post('/api/playlists', { name: playlistName })
+          .then(res => res.data)
+          .then(playlist => {
+              this.setState({
+                  playlists: [...this.state.playlists, playlist]
+              });
+          });
+  }
+
+  fetchPlaylistByid (playlistId) {
+      axios.get(`/api/playlists/${playlistId}`)
+          .then(res => res.data)
+          .then(playlist => {
+              playlist.songs = playlist.songs.map(convertSong); // optional
+              this.setState({ playlist: playlist });
+          });
+  }
 
   render () {
     return (
