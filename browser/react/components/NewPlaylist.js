@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import axios from 'axios';
 // import { Link } from 'react-router-dom';
 
 export default class NewPlaylist extends Component{
@@ -32,12 +33,21 @@ export default class NewPlaylist extends Component{
 
     handleSubmit(e){
         e.preventDefault();
-        console.log("onSubmit",this.state.inputValue);
-        this.setState({inputValue:''});
+        this.props.addPlaylist(this.state.inputValue);
+        this.setState({inputValue:'',dirty:false});
+
+
+        // axios.post('/api/playlists', {name:this.state.inputValue})
+        // .then(res => res.data)
+        // .then(result => {
+        //     console.log("post",result) // response json from the server!
+        // });
+
+
     }
 
     render(){
-        console.log("post",this.state.dirty);
+        // console.log("function",this.props);
 
         return (
             <div className="well">
