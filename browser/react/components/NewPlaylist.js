@@ -5,7 +5,8 @@ export default class NewPlaylist extends Component{
     constructor(){
         super();
         this.state={
-            inputValue:''
+            inputValue:'',
+            dirty:false
         };
 
         this.handleChange = this.handleChange.bind(this); // don't forget this!
@@ -15,7 +16,8 @@ export default class NewPlaylist extends Component{
 
     handleChange(e){
         // console.log("pre",e.target.value);
-        this.setState({inputValue:e.target.value})
+        this.setState({inputValue:e.target.value,dirty:true});
+        // this.setState({dirty:true});
     }
 
     checkCharLimit(){
@@ -35,7 +37,7 @@ export default class NewPlaylist extends Component{
     }
 
     render(){
-        console.log("post",this.state.inputValue);
+        console.log("post",this.state.dirty);
 
         return (
             <div className="well">
@@ -55,11 +57,12 @@ export default class NewPlaylist extends Component{
                         </div>
                     </fieldset>
                 </form>
-                {/*{*/}
-                    {/*if(this.state.showResults) {*/}
-                        {/*<div className="alert alert-warning" visibility=>Please enter a name</div>*/}
-                    {/*}*/}
-                {/*}*/}
+                {
+                    (this.state.dirty && this.checkCharLimit()) ?
+                    <div className="alert alert-warning">Please enter a name</div>
+                    :
+                    ""
+                }
 
             </div>
         )

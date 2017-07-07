@@ -28,6 +28,6 @@ const Sidebar = (props) => {
         </section>
     </sidebar>
   );
-}
+};
 
 export default Sidebar;
